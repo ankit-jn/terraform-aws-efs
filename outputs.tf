@@ -8,13 +8,13 @@ output "efs_arn" {
     value       = aws_efs_file_system.this.arn
 }
 
-output "efs_ens" {
+output "efs_dns" {
     description = "The DNS name for the filesystem."
     value       = aws_efs_file_system.this.dns_name
 }
 
 output "efs_mounts" {
-    description = "The DNS name for the filesystem."
+    description = "The DNS name for the filesystem mount targets."
     value       = { for subnet, target in aws_efs_mount_target.this: 
                                                     subnet => {
                                                                 dns_name = target.mount_target_dns_name

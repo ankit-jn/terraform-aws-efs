@@ -1,17 +1,16 @@
-
 variable "name" {
     description = "File System Name"
     type        = string
 }
 
 variable "availability_zone_name" {
-    description = "(Optional) the AWS Availability Zone in which to create the file system if One Zone EFS."
+    description = "(Optional) The AWS Availability Zone in which to create the file system if One Zone EFS."
     type        = string
     default     = null
 }
 
 variable "performance_mode" {
-    description = "The file system performance mode."
+    description = "(Optional) The file system performance mode."
     type        = string
     default     = "generalPurpose"
 
@@ -22,7 +21,7 @@ variable "performance_mode" {
 }
 
 variable "throughput_mode" {
-    description = "Throughput mode for the file system."
+    description = "(Optional) Throughput mode for the file system."
     type        = string
     default     = "bursting"
 
@@ -33,32 +32,41 @@ variable "throughput_mode" {
 }
 
 variable "provisioned_throughput_in_mibps" {
-    description = "The throughput, measured in MiB/s, that you want to provision for the file system."
+    description = "(Optional) The throughput, measured in MiB/s, that you want to provision for the file system."
     type        = number
     default     = null
 }
 
 variable "encrypt_disk" {
-    description = "Flag to decide if Disk will be encrypted"
+    description = "Flag to decide if Disk will be encrypted."
     type        = bool
     default     = true
 }
 
 variable "kms_key" {
-    description = "Existing KMS key to encrypt the disk."
+    description = <<EOF
+(Optional) Existing KMS key to encrypt the disk.
+
+key Reference could be either of this format:
+
+- 1234abcd-12ab-34cd-56ef-1234567890ab
+- arn:aws:kms:<region>:<account no>:key/1234abcd-12ab-34cd-56ef-1234567890ab
+- alias/my-key
+- arn:aws:kms:<region>:<account no>:alias/my-key
+EOF
     type        = string
     default     = null
 }
 
 variable "create_kms_key" {
-    description = "Flag to decide if new KMS key (symmetric, encrypt/decrypt) is required for Disk encryption"
+    description = "(Optional) Flag to decide if new KMS key (symmetric, encrypt/decrypt) is required for Disk encryption"
     type        = bool
     default     = false
 }
 
 variable "mount_targets" {
     description = <<EOF
-List of configuration EFS mount targets where each entry of the list is a map of the following property:
+(Optional) List of configuration EFS mount targets where each entry of the list is a map of the following property:
 
 subnet_id       : (Required) The ID of the subnet to add the mount target in.
 ip_address      : (Optional) The address (within the address range of the specified subnet) at which the file system may be mounted via the mount target.
@@ -68,39 +76,63 @@ EOF
 }
 
 variable "transition_to_ia" {
-    description = "Time in Number of Days, the files should be transitioned from Standard to Standard-Infrequent Access."
+    description = "(Optional) Time in Number of Days, the files should be transitioned from Standard to Standard-Infrequent Access."
 
     type        = number
     default     = 0
 }
 
 variable "transition_from_ia" {
-    description = "Flag to decide if the files should be transitioned back from Standard-Infrequent Access to Standard."
+    description = "(Optional) Flag to decide if the files should be transitioned back from Standard-Infrequent Access to Standard."
 
     type        = bool
     default     = false
 }
 
 variable "enable_backup" {
-    description = "Flag to decide if BAckup should be enabled"
+    description = "(Optional) Flag to decide if BAckup should be enabled."
     type        = bool
     default     = true
 }
 
+variable "attach_efs_policy" {
+    description = "(Optional) Flag to decide if policy should be atatched for EFS file system."
+    type        = bool
+    default     = false
+}
+
+variable "policy_file" {
+    description = "(Optional) Policy File name with path relative to root directory."
+    type        = string
+    default     = "policies/policy.json"
+}
+
+varible "bypass_policy_lockout_safety_check" {
+    description = "(Optional) Flag to decide whether to bypass the `aws_efs_file_system_policy` lockout safety check."
+    type        = bool
+    default     = false
+}
+
+variable "attach_policy_deny_insecure_transport" {
+    description = "(Optional) Flag to decide for implementing policy to deny EFS operations if in-transit data is not encrypted."
+    type        = bool
+    default     = false
+}
+
 variable "create_sg" {
-    description = "Flag to decide to create Security Group for EFS"
+    description = "(Optional) Flag to decide to create Security Group for EFS"
     type        = bool
     default     = false
 }
 
 variable "vpc_id" {
-  description   = "The ID of VPC that is used to provision the Security Group"
+  description   = "(Optional) The ID of VPC that is used to provision the Security Group"
   type          = string 
   default       = ""
 }
 
 variable "sg_name" {
-    description = "The name of the Security group"
+    description = "(Optional) The name of the Security group"
     type        = string
     default     = ""
 }
@@ -116,7 +148,7 @@ EOF
 }
 
 variable "allowed_sg" {
-    description = "List of Source Security Group IDs defined in Ingress of the created SG"
+    description = "(Optional) List of Source Security Group IDs defined in Ingress of the created SG"
     type        = list(string)
     default     = []
 }
@@ -128,7 +160,7 @@ variable "additional_sg" {
 }
 
 variable "default_tags" {
-    description = "A map of tags to assign to all the resources."
+    description = "(Optional) A map of tags to assign to all the resources."
     type        = map(string)
     default     = {}
 }

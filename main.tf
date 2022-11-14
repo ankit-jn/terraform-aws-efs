@@ -30,6 +30,7 @@ resource aws_efs_backup_policy "this" {
     }
 }
 
+## EFS Mount Targets
 resource aws_efs_mount_target "this" {
 
     for_Each = { for target in var.mount_targets: target.subnet => target }
