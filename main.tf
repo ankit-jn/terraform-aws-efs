@@ -33,15 +33,15 @@ resource aws_efs_backup_policy "this" {
     }
 }
 
-## EFS Mount Targets
+# EFS Mount Targets
 resource aws_efs_mount_target "this" {
 
-    for_Each = { for target in var.mount_targets: target.subnet => target }
+    for_each = { for target in var.mount_targets: target.subnet => target }
 
     file_system_id = aws_efs_file_system.this.id
 
     subnet_id = each.key
-    ip_address = try(each.value.ip_address, null)
+    ip_address = lookup(each.value, "ip_address", null)
     security_groups  = concat(local.security_groups, try(each.value.security_groups, []))
 
 }

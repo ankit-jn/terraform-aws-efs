@@ -1,6 +1,6 @@
 output "efs_id" {
     description = "The ID that identifies the file system"
-    value       = aws_efs_file_system.this.efs_id
+    value       = aws_efs_file_system.this.id
 }
 
 output "efs_arn" {

@@ -15,7 +15,7 @@ variable "performance_mode" {
     default     = "generalPurpose"
 
     validation {
-        condition = contains(["generalPurpose", "maxIO"], var.throughput_mode)
+        condition = contains(["generalPurpose", "maxIO"], var.performance_mode)
         error_message = "Allowed Value for `performance_mode` is either `generalPurpose` or `maxIO`."
     }
 }
@@ -94,7 +94,7 @@ variable "transition_from_ia" {
     default = 0
     
     validation {
-        condition = contains([1], var.transition_to_ia)
+        condition = (var.transition_from_ia > 0) ? contains([1], var.transition_from_ia) : true
         error_message = "Only possible value is 1."
     }
 }

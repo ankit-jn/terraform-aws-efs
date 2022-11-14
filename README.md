@@ -43,7 +43,7 @@ Refer [Configuration Examples](https://github.com/arjstack/terraform-aws-example
 | <a name="throughput_mode"></a> [throughput_mode](#input\_throughput\_mode) | Throughput mode for the file system. | `string` | `bursting` | no |
 | <a name="provisioned_throughput_in_mibps"></a> [provisioned_throughput_in_mibps](#input\_provisioned\_throughput\_in\_mibps) | The throughput, measured in MiB/s, that you want to provision for the file system. | `number` | `null` | no |
 | <a name="transition_to_ia"></a> [transition_to_ia](#input\_transition\_to\_ia) | Time in Number of Days, the files should be transitioned from Standard to Standard-Infrequent Access. | `number` | `0` | no |
-| <a name="transition_from_ia"></a> [transition_from_ia](#input\_transition\_from\_ia) | Flag to decide if the files should be transitioned back from Standard-Infrequent Access to Standard. | `bool` | `false` | no |
+| <a name="transition_from_ia"></a> [transition_from_ia](#input\_transition\_from\_ia) | Flag to decide if the files should be transitioned back from Standard-Infrequent Access to Standard. | `number` | `0` | no |
 | <a name="enable_backup"></a> [enable_backup](#input\_enable\_backup) | Flag to decide if BAckup should be enabled. | `bool` | `true` | no |
 | <a name="mount_targets"></a> [mount_targets](#input\_mount\_targets) | List of configuration EFS mount targets | `list` | `[]` | no |
 | <a name="default_tags"></a> [default_tags](#input\_default\_tags) | A map of tags to assign to all the resource. | `map(string)` | `{}` | no |
