@@ -18,7 +18,15 @@ resource aws_efs_file_system "this" {
 
         content {
             transition_to_ia = format("AFTER_%d_DAYS", var.transition_to_ia)
-            transition_to_primary_storage_class = (var.transition_from_ia > 0) ? format("AFTER_%d_ACCESS", var.transition_from_ia) : null
+        }
+    }
+    
+    dynamic "lifecycle_policy" {
+        for_each = ((var.transition_to_ia > 0) 
+                            && (var.transition_from_ia > 0)) ? [1] : []
+
+        content {
+           transition_to_primary_storage_class = format("AFTER_%d_ACCESS", var.transition_from_ia)
         }
     }
 

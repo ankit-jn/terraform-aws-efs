@@ -44,16 +44,7 @@ variable "encrypt_disk" {
 }
 
 variable "kms_key" {
-    description = <<EOF
-(Optional) Existing KMS key to encrypt the disk.
-
-key Reference could be either of this format:
-
-- 1234abcd-12ab-34cd-56ef-1234567890ab
-- arn:aws:kms:<region>:<account no>:key/1234abcd-12ab-34cd-56ef-1234567890ab
-- alias/my-key
-- arn:aws:kms:<region>:<account no>:alias/my-key
-EOF
+    description = "(Optional) Existing KMS key ARN to encrypt the disk."
     type        = string
     default     = null
 }
