@@ -81,6 +81,12 @@ variable "transition_from_ia" {
     default     = false
 }
 
+variable "enable_backup" {
+    description = "Flag to decide if BAckup should be enabled"
+    type        = bool
+    default     = true
+}
+
 variable "create_sg" {
     description = "Flag to decide to create Security Group for EFS"
     type        = bool

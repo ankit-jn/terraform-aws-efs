@@ -22,6 +22,14 @@ resource aws_efs_file_system "this" {
     tags = merge({"Name" = var.name}, var.default_tags)   
 }
 
+resource aws_efs_backup_policy "this" {
+    file_system_id = aws_efs_file_system.this.id
+
+    backup_policy {
+        status = var.enable_backup ? "ENABLED" : "DISABLED"
+    }
+}
+
 resource aws_efs_mount_target "this" {
 
     for_Each = { for target in var.mount_targets: target.subnet => target }
