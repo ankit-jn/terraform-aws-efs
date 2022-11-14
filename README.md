@@ -29,8 +29,6 @@ Refer [Configuration Examples](https://github.com/arjstack/terraform-aws-example
 
 ### Inputs
 
-#### DB Cluster specific properties
----
 | Name | Description | Type | Default | Required | Example|
 |:------|:------|:------|:------|:------:|:------|
 
