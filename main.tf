@@ -3,7 +3,10 @@ resource aws_efs_file_system "this" {
 
     availability_zone_name = var.availability_zone_name
 
-    performance_mode = var.performance_mode
+    ## In case of One zone EFS (i.e. availablity_zone_name is given), 
+    ## `performance_mode` is by default set to `generalPurpose`
+    performance_mode = (var.availability_zone_name == null 
+                            || var.availability_zone_name == "") ? "generalPurpose" : var.performance_mode
     throughput_mode = var.throughput_mode
     provisioned_throughput_in_mibps = (var.throughput_mode == "provisioned") ? var.provisioned_throughput_in_mibps : null
 
@@ -15,7 +18,7 @@ resource aws_efs_file_system "this" {
 
         content {
             transition_to_ia = format("AFTER_%d_DAYS", var.transition_to_ia)
-            transition_to_primary_storage_class = var.transition_from_ia ? "AFTER_1_ACCESS" : null
+            transition_to_primary_storage_class = (var.transition_from_ia > 0) ? format("AFTER_%d_ACCESS", var.transition_from_ia) : null
         }
     }
 

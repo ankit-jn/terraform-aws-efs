@@ -70,7 +70,10 @@ Refer [Configuration Examples](https://github.com/arjstack/terraform-aws-example
 | <a name="attach_efs_policy"></a> [attach_efs_policy](#input\_attach\_efs\_policy) | Flag to decide if policy should be atatched for EFS file system. | `bool` | `false` | no |
 | <a name="policy_file"></a> [policy_file](#input\_policy\_file) | Policy File name with path relative to root directory. | `string` | `"policies/policy.json"` | no |
 | <a name="bypass_policy_lockout_safety_check"></a> [bypass_policy_lockout_safety_check](#input\_bypass\_policy\_lockout\_safety\_check) | Flag to decide whether to bypass the `aws_efs_file_system_policy` lockout safety check. | `bool` | `false` | no |
-| <a name="attach_policy_deny_insecure_transport"></a> [attach_policy_deny_insecure_transport](#input\_attach\_policy\_deny\_insecure\_transport) | Flag to decide for implementing policy to deny EFS operations if in-transit data is not encrypted. | `bool` | `false` | no |
+| <a name="attach_policy_prevent_root_access"></a> [attach_policy_prevent_root_access](#input\_attach\_policy\_prevent_root_access) | Flag to decide for implementing policy to prevent root access. | `bool` | `false` | no |
+| <a name="attach_policy_enforce_readonly_access"></a> [attach_policy_enforce_readonly_access](#input\_attach\_policy\_enforce_readonly_access) | Flag to decide for implementing policy to enforce read only access. | `bool` | `false` | no |
+| <a name="attach_policy_prevent_anonymous_access"></a> [attach_policy_prevent_anonymous_access](#input\_attach\_policy\_prevent_anonymous_access) | Flag to decide for implementing policy to prvent anonymous access. | `bool` | `false` | no |
+| <a name="attach_policy_enforce_in_transit_encryption"></a> [attach_policy_enforce_in_transit_encryption](#input\_attach\_policy\_enforce_in_transit_encryption) | Flag to decide for implementing policy to enforce In Transit Encryption. | `bool` | `false` | no |
 
 #### EFS Security Properties
 

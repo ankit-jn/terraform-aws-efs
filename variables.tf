@@ -80,13 +80,23 @@ variable "transition_to_ia" {
 
     type        = number
     default     = 0
+
+    validation {
+        condition = contains([7, 14, 30, 60, 90], var.transition_to_ia)
+        error_message = "Possible values are either 7 or 14 or 30 or 60 or 90."
+    }
 }
 
 variable "transition_from_ia" {
     description = "(Optional) Flag to decide if the files should be transitioned back from Standard-Infrequent Access to Standard."
 
-    type        = bool
-    default     = false
+    type    = number
+    default = 0
+    
+    validation {
+        condition = contains([1], var.transition_to_ia)
+        error_message = "Only possible value is 1."
+    }
 }
 
 variable "enable_backup" {
@@ -113,12 +123,29 @@ varible "bypass_policy_lockout_safety_check" {
     default     = false
 }
 
-variable "attach_policy_deny_insecure_transport" {
-    description = "(Optional) Flag to decide for implementing policy to deny EFS operations if in-transit data is not encrypted."
+variable "attach_policy_prevent_root_access" {
+    description = "(Optional) Flag to decide for implementing policy to prevent root access."
     type        = bool
     default     = false
 }
 
+variable "attach_policy_enforce_readonly_access" {
+    description = "(Optional) Flag to decide for implementing policy to enforce read only access."
+    type        = bool
+    default     = false
+}
+
+variable "attach_policy_prevent_anonymous_access" {
+    description = "(Optional) Flag to decide for implementing policy to prvent anonymous access."
+    type        = bool
+    default     = false
+}
+
+variable "attach_policy_enforce_in_transit_encryption" {
+    description = "(Optional) Flag to decide for implementing policy to enforce In Transit Encryption."
+    type        = bool
+    default     = false
+}
 variable "create_sg" {
     description = "(Optional) Flag to decide to create Security Group for EFS"
     type        = bool
