@@ -4,6 +4,58 @@ variable "name" {
     type        = string
 }
 
+variable "availability_zone_name" {
+    description = "(Optional) the AWS Availability Zone in which to create the file system if One Zone EFS."
+    type        = string
+    default     = null
+}
+
+variable "performance_mode" {
+    description = "The file system performance mode."
+    type        = string
+    default     = "generalPurpose"
+
+    validation {
+        condition = contains(["generalPurpose", "maxIO"], var.throughput_mode)
+        error_message = "Allowed Value for `performance_mode` is either `generalPurpose` or `maxIO`."
+    }
+}
+
+variable "throughput_mode" {
+    description = "Throughput mode for the file system."
+    type        = string
+    default     = "bursting"
+
+    validation {
+        condition = contains(["bursting", "provisioned"], var.throughput_mode)
+        error_message = "Allowed Value for `throughput_mode` is either `bursting` or `provisioned`."
+    }
+}
+
+variable "provisioned_throughput_in_mibps" {
+    description = "The throughput, measured in MiB/s, that you want to provision for the file system."
+    type        = number
+    default     = null
+}
+
+variable "encrypt_disk" {
+    description = "Flag to decide if Disk will be encrypted"
+    type        = bool
+    default     = true
+}
+
+variable "kms_key" {
+    description = "Existing KMS key to encrypt the disk."
+    type        = string
+    default     = null
+}
+
+variable "create_kms_key" {
+    description = "Flag to decide if new KMS key (symmetric, encrypt/decrypt) is required for Disk encryption"
+    type        = bool
+    default     = false
+}
+
 variable "mount_targets" {
     description = <<EOF
 List of configuration EFS mount targets where each entry of the list is a map of the following property:
@@ -13,6 +65,20 @@ ip_address      : (Optional) The address (within the address range of the specif
 security_groups : (Optional) List of Security Groups along with EFS cluster Level Security Group (if provisioned) to be attached with Mount target.
 
 EOF
+}
+
+variable "transition_to_ia" {
+    description = "Time in Number of Days, the files should be transitioned from Standard to Standard-Infrequent Access."
+
+    type        = number
+    default     = 0
+}
+
+variable "transition_from_ia" {
+    description = "Flag to decide if the files should be transitioned back from Standard-Infrequent Access to Standard."
+
+    type        = bool
+    default     = false
 }
 
 variable "create_sg" {
