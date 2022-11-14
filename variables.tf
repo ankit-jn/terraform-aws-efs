@@ -117,7 +117,7 @@ variable "policy_file" {
     default     = "policies/policy.json"
 }
 
-varible "bypass_policy_lockout_safety_check" {
+variable "bypass_policy_lockout_safety_check" {
     description = "(Optional) Flag to decide whether to bypass the `aws_efs_file_system_policy` lockout safety check."
     type        = bool
     default     = false
