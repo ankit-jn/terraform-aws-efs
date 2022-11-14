@@ -51,16 +51,11 @@ Refer [Configuration Examples](https://github.com/arjstack/terraform-aws-example
 #### Encryption Properties
 
 - `create_kms_key` set as `true` takes preference over `kms_key`
-- `kms_key` could be either of this format:
-    - 1234abcd-12ab-34cd-56ef-1234567890ab
-    - arn:aws:kms:<region>:<account no>:key/1234abcd-12ab-34cd-56ef-1234567890ab
-    - alias/my-key
-    - arn:aws:kms:<region>:<account no>:alias/my-key
 
 | Name | Description | Type | Default | Required |
 |:------|:------|:------|:------|:------:|
 | <a name="encrypt_disk"></a> [encrypt_disk](#input\_encrypt\_disk) | Flag to decide if Disk will be encrypted | `bool` | `true` | no |
-| <a name="kms_key"></a> [kms_key](#input\_kms\_key) | Existing KMS key to encrypt the disk. | `string` | `null` | no |
+| <a name="kms_key"></a> [kms_key](#input\_kms\_key) | ARN of the existing KMS key ARN to encrypt the disk. | `string` | `null` | no |
 | <a name="create_kms_key"></a> [create_kms_key](#input\_create\_kms\_key) | Flag to decide if new KMS key (symmetric, encrypt/decrypt) is required for Disk encryption | `bool` | `true` | no |
 
 #### EFS Policy Properties

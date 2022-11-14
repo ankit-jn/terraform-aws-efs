@@ -44,7 +44,7 @@ variable "encrypt_disk" {
 }
 
 variable "kms_key" {
-    description = "(Optional) Existing KMS key ARN to encrypt the disk."
+    description = "(Optional) ARN of the existing KMS key ARN to encrypt the disk."
     type        = string
     default     = null
 }
