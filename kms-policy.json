@@ -1,0 +1,40 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Allow access to EFS for all principals in the account that are authorized to use EFS",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "*"
+            },
+            "Action": [
+                "kms:Encrypt",
+                "kms:Decrypt",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+                "kms:CreateGrant",
+                "kms:DescribeKey"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "kms:ViaService": "elasticfilesystem.${aws_region}.amazonaws.com",
+                    "kms:CallerAccount": "${aws_account}"
+                }
+            }
+        },
+        {
+            "Sid": "Allow the EFS Service to describe the key directly",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "elasticfilesystem.amazonaws.com"
+            },
+            "Action": [
+                "kms:Describe*",
+                "kms:Get*",
+                "kms:List*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
