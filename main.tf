@@ -56,7 +56,7 @@ resource aws_efs_mount_target "this" {
 
 ## Security Group for EFS
 module "efs_security_group" {
-    source = "git::https://github.com/arjstack/terraform-aws-security-groups.git?ref=v1.0.0"
+    source = "git::https://github.com/ankit-jn/terraform-aws-security-groups.git"
 
     count = var.create_sg ? 1 : 0
 
